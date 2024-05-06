@@ -6,10 +6,19 @@ Full Stack Architect, Corporate Trainer
 
 Co-founder & CTO: Lucida Technologies Pvt Ltd., 
 
-Email: banuprakashc@yahoo.co.in
+https://www.lucidatechnologies.com/
 
 https://www.linkedin.com/in/banu-prakash-50416019/
 
+
+Emails: 
+banuprakashc@yahoo.co.in
+
+banuprakash.cr@gmail.com
+
+banu@lucidatechnologies.com
+
+Repository for Training:
 https://github.com/BanuPrakash/Spring
 
 ===================================
@@ -52,3 +61,5 @@ d) Run MySQL client:
 bash terminal> mysql -u "root" -p
 
 mysql> exit
+
+=====================
