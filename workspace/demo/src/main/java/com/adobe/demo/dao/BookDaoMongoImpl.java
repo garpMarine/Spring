@@ -5,9 +5,9 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public class BookDaoSqlImpl implements BookDao{
+public class BookDaoMongoImpl implements BookDao{
     @Override
     public void addBook() {
-        System.out.println("SQL Store !!!");
+        System.out.println("Mongo Store!!!");
     }
 }

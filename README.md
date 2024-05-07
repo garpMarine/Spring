@@ -253,5 +253,26 @@ public class DemoApplication {
 SpringApplication.run(DemoApplication.class, args); is same as AnnotationConfigApplicationContext
 
 
+Spring is using ByteCode Instrumentation libraries:
+CGLib, Java Assist, Byte Buddy
 
+```
+Auto-wiring by type:
+Field bookDao in com.adobe.demo.service.AppService required a single bean, but 2 were found:
+	- bookDaoMongoImpl: 
+	- bookDaoSqlImpl:
 
+Solution 1: using @Primary
+mark one of the bean as @Primary
+
+Solution 2: using @Qualifier at field level
+	@Autowired
+    @Qualifier("bookDaoMongoImpl")
+    private BookDao bookDao;
+
+This is better if both Implemenations are used in application
+
+Service 1 use Mongo
+Service 2 use SQL
+
+```
