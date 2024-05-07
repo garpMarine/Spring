@@ -318,5 +318,150 @@ Solution 5: @ConditionalOnMissingBean
 @ConditionalOnMissingBean(name="sql")
 @Repository("mongo")
 public class BookDaoMongoImpl implements BookDao{
-	
+
 ```
+
+Factory Method using @Bean
+Include in pom.xml
+com.mchange:c3p0:0.10.0
+
+```
+@Configuration
+public class AppConfig {
+
+@Bean("postgres-cp")
+public DataSource getDataSource() {
+	ComboPooledDataSource cpds = new ComboPooledDataSource();
+	cpds.setDriverClass( "org.postgresql.Driver" ); //loads the jdbc driver
+	cpds.setJdbcUrl( "jdbc:postgresql://localhost/testdb" );
+	cpds.setUser("swaldman");
+	cpds.setPassword("test-password");
+
+	// the settings below are optional -- c3p0 can work with defaults
+	cpds.setMinPoolSize(5);
+	cpds.setAcquireIncrement(5);
+	cpds.setMaxPoolSize(20);
+	return cpds;
+}
+
+}
+@Repository("sql")
+public class BookDaoSqlImpl implements BookDao{
+	@Autowired
+	@Qualifier("postgres-cp")
+	DataSource ds;
+
+	public void addBook(Book b) {
+		Connection con = ds.getConnection(); 
+		...
+	}
+
+```
+
+Spring Data JPA  module is built on top of Spring Core
+
+1) Spring Data JPA provides Connection pooling by default using HikariCP based on entries present in "application.properties"
+https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html
+
+2) Spring Data JPA provides Hibernate as the default JPA Vendor
+
+ORM --> Object Relational Mapping
+
+
+Java Class <---> Relational database table
+fields <---> Columns of table
+
+ORM frameworks will generate DDL and DML
+* Hibernate
+* TopLink
+* EclipseLink
+* KODO
+* OpenJPA
+...
+
+public void addProduct(Product p) {
+	em.persist(p);
+}
+
+JPA is a specification for ORM
+
+===========================
+
+DataSource, PersistenceContext, EntityManagerFactory, EntityManager, HibernateJpaVendor
+
+Using Spring:
+
+```
+
+@Configuration
+public class AppConfig {
+
+@Bean("postgres-cp")
+public DataSource getDataSource() {
+	ComboPooledDataSource cpds = new ComboPooledDataSource();
+	cpds.setDriverClass( "org.postgresql.Driver" ); //loads the jdbc driver
+	cpds.setJdbcUrl( "jdbc:postgresql://localhost/testdb" );
+	cpds.setUser("swaldman");
+	cpds.setPassword("test-password");
+
+	// the settings below are optional -- c3p0 can work with defaults
+	cpds.setMinPoolSize(5);
+	cpds.setAcquireIncrement(5);
+	cpds.setMaxPoolSize(20);
+	return cpds;
+}
+
+@Bean
+public EntityManagerFactory emf(DataSource ds) {
+	LocalContainerEntityManagerFactory emf = new LocalContainerEntityManagerFactory();
+	emf.setDataSource(ds);
+	emf.setJpaVendor(new HibernateJpaVendor());
+	emf.setPackagesToScan("com.adobe.demo.entity");
+	...
+	return emf;
+}
+}
+```
+
+Repository classes:
+```
+@Repository("sql")
+public class BookDaoSqlImpl implements BookDao{
+	@PersistenceContext
+	EntityManager em;
+
+	void addBook(Book b) {
+		em.persist(b);
+	}
+}
+```
+
+Spring Data JPA which is available to Spring Boot simpiles using JPA
+* no need to explicitly configure datasource , EntityManager, etc.
+* just need to create interface extends one of the JpaRepository
+* Spring boot creates instances of the class for the interface
+
+public interface BookDao extends JpaRepository {}
+
+all default CRUD operations are provided out-of-box
+* it allows us to add custom CRUD operations
+
+==================
+application.properties
+application-dev.properties
+application-prod.properties
+application.yml
+========
+
+Spring Boot applicaiton
+groupId:com.adobe
+artifactId:orderapp
+Java, Maven project
+
+"orderapp"
+depdencies:
+1) mysql
+2) lombok [code generation library]
+3) spring data jpa
+
+@Data --> generates getters, setters, equals and hashCode
