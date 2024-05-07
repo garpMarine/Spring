@@ -62,6 +62,8 @@ bash terminal> mysql -u "root" -p
 
 mysql> exit
 
+```
+
 4. POSTMAN
 
 =====================
