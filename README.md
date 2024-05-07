@@ -180,6 +180,7 @@ AppService ser = ctx.getBean("appService", AppService.class);
 Spring instantiates beans which has one of these annotations at class-level:
 1) @Component
 2) @Repository
+https://github.com/spring-projects/spring-framework/blob/main/spring-jdbc/src/main/resources/org/springframework/jdbc/support/sql-error-codes.xml
 3) @Service
 4) @Configuration
 5) @Controller
@@ -190,4 +191,67 @@ Wiring can be done using:
 1) @Autowired
 2) @Inject
 3) Constructor DI
+
+try {
+
+}catch(SQLException ex) {
+	if(ex.getErrorCode() == 1501) {
+
+	} else if(ex.getErrorCode() == 2100) {
+		
+	}
+}
+=====================================
+
+Guice by Google is alternate
+
+Spring Boot is a framework on top of Spring Framework
+For Example
+Spring Boot 2.x is built on top of Spring Framework 5.x
+Spring Boot 3.x is built on top of Spring Framework 6.x
+
+Why Spring Boot?
+1) Simplifies development
+2) Most of the configurations are provided out of the box
+3) Highly opiniated framework
+4) Ready for dockerization
+
+For Example if we are using ORM, spring boot configures database connection pooling and Hibernate out of the box
+
+If we are building web applications: Tomcat Embedded web container is configured out of the box
+
+=============
+
+ <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+</dependency>
+```
+@SpringBootApplication
+public class DemoApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
+
+}
+```
+@SpringBootApplication is 3 in one:
+1) @Configuration
+	--> helps instantiate DemoApplication as demoApplication
+	--> it is also a configuration object
+2) @EnableAutoConfiguration
+	depending on context create built-in beans like:
+	TomcatEmbeddedServer , HibernateJpaProvider, HikariCP, ...
+3) @ComponentScan
+	by default it scans classes present in package [com.adobe.demo] where "main" is present and it's sub-packages	
+
+	Example: if I write class in "com.example"; that class is not scanned and bean is not created
+
+	@ComponentScan("com.pkg1", "com.pkg2")
+--
+SpringApplication.run(DemoApplication.class, args); is same as AnnotationConfigApplicationContext
+
+
+
 
