@@ -275,4 +275,48 @@ This is better if both Implemenations are used in application
 Service 1 use Mongo
 Service 2 use SQL
 
+@Repository("sql")
+public class BookDaoSqlImpl implements BookDao{
+
+@Autowired
+@Qualifier("sql")
+private BookDao bookDao;
+
+Solution 3: using @Profile
+
+@Profile("dev")
+@Repository("sql")
+public class BookDaoSqlImpl implements BookDao{
+
+@Profile("prod")
+@Repository("mongo")
+public class BookDaoMongoImpl implements BookDao{
+
+a) 
+application.properties
+spring.profiles.active=prod
+
+b) Program arguments
+More Run/Debug --> Modify Configurations --> Active Profile: dev or prod
+
+Program Arguments --> Environemnt variables --> application.properties
+
+Solution 4: using custom proerties
+application.properties
+DAO=SQL
+
+@ConditionalOnProperty(name ="DAO", havingValue = "MONGO")
+@Repository("mongo")
+public class BookDaoMongoImpl implements BookDao{
+
+@ConditionalOnProperty(name ="DAO", havingValue = "SQL")
+@Repository("sql")
+public class BookDaoSqlImpl implements BookDao{
+
+Solution 5: @ConditionalOnMissingBean
+
+@ConditionalOnMissingBean(name="sql")
+@Repository("mongo")
+public class BookDaoMongoImpl implements BookDao{
+	
 ```

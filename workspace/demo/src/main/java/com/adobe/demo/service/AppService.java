@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class AppService {
     @Autowired
-    @Qualifier("bookDaoMongoImpl")
     private BookDao bookDao;
 
     public void insertBook() {
