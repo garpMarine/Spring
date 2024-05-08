@@ -487,3 +487,124 @@ map to existing tables. if any mismatch throw errors
 em.save(p); // INSERT SQL
 
 em.findAll(); // Select SQL
+
+application.properties
+entities: Order and LineItem
+
+Scope of beans:
+```
+1) Singleton [default]
+@Scope("singleton") or
+@Singleton
+
+@Repository
+@Scope("singleton")
+public class SomeRepo {
+}
+
+@Service
+class AService {
+	@Autowired
+	SomeRepo repo;
+}
+
+@Service BService {
+	@Autowired
+	SomeRepo repo;
+}
+
+Here both AService and BService gets access to the same bean
+
+2) Prototype
+@Scope("prototype")
+public class SomeRepo {
+}
+
+@Service
+class AService {
+	@Autowired
+	SomeRepo repo;
+}
+
+@Service BService {
+	@Autowired
+	SomeRepo repo;
+}
+
+Here both AService and BService will get different instances of SomeRepo
+
+3) Request
+@Scope("request")
+or
+@RequestScope
+public class SomeRepo {
+}
+
+Here SomeRepo bean instance is created when client makes a request, this bean is destroyed once response is commited to the client
+
+4) Session
+@Scope("session")
+or
+@SessionScope
+public class SomeRepo {
+}
+
+bean is attached to conversational state of a client
+1 bean per client
+
+5) application
+one per web container
+```
+
+OrderService service = new OrderService(a, b);
+
+```
+Hibernate: 
+    create table customers (
+        email varchar(255) not null,
+        fname varchar(100),
+        lname varchar(100),
+        primary key (email)
+    ) engine=InnoDB
+Hibernate: 
+    create table line_items (
+        itemid integer not null auto_increment,
+        amount float(53) not null,
+        quantity integer not null,
+        product_fk integer,
+        order_fk integer,
+        primary key (itemid)
+    ) engine=InnoDB
+Hibernate: 
+    create table orders (
+        oid integer not null auto_increment,
+        order_date datetime(6),
+        total float(53) not null,
+        customer_fk varchar(255),
+        primary key (oid)
+    ) engine=InnoDB
+Hibernate: 
+    create table products (
+        id integer not null auto_increment,
+        name varchar(255),
+        price float(53) not null,
+        quantity integer not null,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    alter table line_items 
+       add constraint FK7bcmyaf081a54pqagiuo2boo 
+       foreign key (product_fk) 
+       references products (id)
+Hibernate: 
+    alter table line_items 
+       add constraint FKjvi2gypwgl46v67xa2bgqp0uj 
+       foreign key (order_fk) 
+       references orders (oid)
+Hibernate: 
+    alter table orders 
+       add constraint FKlctjwy900y7l1xmwulg4rkeb3 
+       foreign key (customer_fk) 
+       references customers (email)
+```
+
