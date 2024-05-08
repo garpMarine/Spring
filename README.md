@@ -719,6 +719,13 @@ https://spotify.com/users/banu@gmail.com/playlist
 * lower case URIs
 * never use CRUD functions in URIS
 
+Use Path paramter to fetch a single resource based on PK
+http://localhost:8080/api/products/3
+
+use Query parameter to fetch sub-sets [ filtered]
+http://localhost:8080/api/products?low=1000&high=10000
+http://localhost:8080/api/products?page=3&size=20
+
 ----
 Principles of REST:
 1) Uniform Interface
@@ -755,6 +762,9 @@ GET http://localhost:8080/api/products
 
 public ContentNegotiationConfigurer defaultContentTypeStrategy(ContentNegotiationStrategy defaultStrategy)
 
+==========
+
+HttpMessageConverters for String to Java primitives are available by default
 
 
 

@@ -17,6 +17,10 @@ public class OrderService {
     private final ProductDao productDao; // constructor DI, no need for @Autowired
     private final CustomerDao customerDao;
 
+    public List<Product> byRange(double low, double high) {
+        return productDao.getByRange(low, high);
+    }
+
     public long getProductsCount() {
         return productDao.count();
     }
