@@ -19,4 +19,7 @@ public class Customer {
 
     @Column(name="FNAME", length = 100)
     private String firstName;
+
+    @Column(name="LNAME", length = 100)
+    private String lastName;
 }

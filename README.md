@@ -465,3 +465,25 @@ depdencies:
 3) spring data jpa
 
 @Data --> generates getters, setters, equals and hashCode
+
+===========
+
+Day 2: JPA with RESTful WS
+
+create database ADOBE_MAY_24;
+
+1) spring.jpa.hibernate.ddl-auto=update
+create table if not exists, if exists use it, if required alter
+Good for Top to Bottom appraoch
+
+2) spring.jpa.hibernate.ddl-auto=create
+for every run of application drop existing tables and re-create
+-> good for testing environment
+
+3) spring.jpa.hibernate.ddl-auto=verify
+Bottom to Top Approach
+map to existing tables. if any mismatch throw errors
+
+em.save(p); // INSERT SQL
+
+em.findAll(); // Select SQL
