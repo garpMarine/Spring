@@ -673,6 +673,90 @@ gets records from all tables
 from Object
 SQL is not poly-morphic, uses table and columns
 
+==========================
+
+Pending: OrderDao and OrderService
+
+============================================
+
+Building RESTful WS:
+
+REST --> REpresentational State Transfer --> 2000 Roy Fielding
+
+Resource: document, image, database , printer
+Represenation: state of resource in readable format like XML / JSON / CSV
+
+REST APIs uses Uniform Resource Identifiers to address resources
+
+* Singleton and Collection Resources
+"customers" --> collection
+"customer" --> is a singleton
+
+* Collection and sub-collection resources
+	* "/customers/banu@gmail.com/accounts"
+
+Content Negotiation:
+asking for suitable presentation by a client [ json / xml]
+
+by using HTTP Header:
+Accept: text/xml
+
+Accept: application/json
+
+Best Practices:
+* use nouns to represetn resources
+* Collection
+-> server managed directory of resources
+* store
+--> client managed resource repository
+--> client can add , delete , ...
+https://spotify.com/users/banu@gmail.com/playlist
+* Controller
+ --> procedural concept , executable functions
+ https://spotify.com/users/banu@gmail.com/playlist/play
+
+* use hyphens to imporove readability
+* lower case URIs
+* never use CRUD functions in URIS
+
+----
+Principles of REST:
+1) Uniform Interface
+2) Client Server: Seperation of concerns
+3) Stateless: No conversational state of the client [ no  session tracking]
+4) Cacheble
+5) Layered System
+Component A --> Component B --> Component C
+http://server.com/products
+
+Spring Boot:
+ <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+
+1) adds Tomcat Embedded Web Container / server
+2) Adds Spring MVC module
+* DispatcherServlet running in web container intercepts all requests comming from client [Front Controller]
+* provides HandlerMapping: every request from client is mapped to @Controller or @RestController
+* Jackson for ContentNegotiationHandler to handle JSON
+Java <--> JSON
+Other alternative for JSON:
+Jettison / GSON / MOXY [ needs to configured explicilty]
+* for XML we need to configure explicitly
+<dependency>
+    <groupId>com.fasterxml.jackson.dataformat</groupId>
+    <artifactId>jackson-dataformat-xml</artifactId>
+</dependency>
+
+---
+
+GET http://localhost:8080/api/products
+
+public ContentNegotiationConfigurer defaultContentTypeStrategy(ContentNegotiationStrategy defaultStrategy)
+
+
+
 
  
 
