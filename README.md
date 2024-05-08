@@ -608,3 +608,75 @@ Hibernate:
        references customers (email)
 ```
 
+https://martinfowler.com/bliki/DomainDrivenDesign.html
+
+
+Association Mapping:
+1) one-to-one
+2) one-to-many
+3) many-to-one
+4) many-to-many
+
+one order has 5 items;
+
+Without Cascade:
+A)
+save(order);
+save(i1);
+save(i2);
+save(i3);
+save(i4);
+save(i5);
+
+B) 
+delete(order);
+delete(i1);
+delete(i2);
+delete(i3);
+delete(i4);
+delete(i5);
+
+With Cascade:
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="order_fk" )
+    private List<LineItem> items = new ArrayList<>();
+A)
+save(order);
+B) 
+delete(order);
+
+EAGER Fetch and Lazy Fetching:
+
+1) By default it's Lazy:
+orderDao.findById(1);
+select * from orders where oid = 1;
+Items are not fetched
+
+2) EAGER
+ @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="order_fk" )
+    private List<LineItem> items = new ArrayList<>();
+
+orderDao.findById(1);
+select * from orders where oid = 1;
+AND
+select * from line_items where order_fk = 1;
+
+===
+ With the above settings we don't need ItemDao
+
+ =======================================
+
+JP-QL: it's polymorphic, case sensensitve, uses class and fields
+gets records from all tables
+from Object
+SQL is not poly-morphic, uses table and columns
+
+
+ 
+
+
+
+
+ 

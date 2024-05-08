@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 @Component
 @Order(2)
 @RequiredArgsConstructor
-
 public class CustomerClient implements CommandLineRunner {
     private final OrderService service; // instead of @Autowired use Constructor DI
 

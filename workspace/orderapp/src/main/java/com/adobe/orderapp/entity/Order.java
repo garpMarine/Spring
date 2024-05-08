@@ -30,7 +30,11 @@ public class Order {
     @JoinColumn(name="customer_fk")
     private Customer customer;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="order_fk" )
     private List<LineItem> items = new ArrayList<>();
 }
+
+//  @JoinColumn introduces FK
+// 1. for @ManyToOne FK is in Owning table [orders]
+// 2. for @OneToMany FK is in child table [line_items]
