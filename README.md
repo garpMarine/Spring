@@ -889,4 +889,16 @@ Before, After, AfterReturning, Around, AfterThrowing
 
 =======
 
+AOP, @Transactional, Exception handling, validation,...
+https://docs.spring.io/spring-framework/docs/2.0.x/reference/aop.html
+
+
+
+@Transactional --> Pre-defined aspect provided by Spring Data, can be used for JPA / Redis/ MongoDB, ...
+
+* This commits if no exceptions are thrown from your method.
+* Rollsback if method throws Exception
+
+
+
 

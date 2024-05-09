@@ -1,5 +1,6 @@
 package com.adobe.orderapp.service;
 
+import com.adobe.orderapp.aspect.Tx;
 import com.adobe.orderapp.dao.CustomerDao;
 import com.adobe.orderapp.dao.ProductDao;
 import com.adobe.orderapp.entity.Customer;
@@ -21,6 +22,7 @@ public class OrderService {
         return productDao.getByRange(low, high);
     }
 
+    @Tx
     public long getProductsCount() {
         return productDao.count();
     }
