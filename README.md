@@ -825,8 +825,68 @@ Change to:
 
 ```
 
-<dependency>
-    <groupId>com.github.java-json-tools</groupId>
-    <artifactId>json-patch</artifactId>
-    <version>1.13</version>
-</dependency>
+AOP: Aspect Oriented Programming
+--> to remove code scattering and code tangling
+
+Code Tangling
+```
+public void transferFunds(Account fa, Account ta, double amt) {
+	if(ctx.getRole().equals("WRITE_PERMISSION")) { // security
+		log.debug("transaction started"); //logger
+		double bal = fa.getBalance(); 
+		if(bal > amt) { // business logic
+			log.debug("amt present");
+			try {
+				con.setAutoCommit(false); //tx
+				// actual code
+
+				con.commit(); // tx
+			}
+			catch(SQLException ex) {
+				con.rollback(); //tx
+				log...
+			}
+		} else {
+			log.debug("tx failed...");
+			throw new InsufficientBalanceException(..);
+		}
+	}
+}
+```
+Terminologies:
+1) Aspect: bit of concern which can be used along with the main logic
+Logger, Security, Profile, Transaction, ...
+Generally these are the ones which lead to code tangling and code scattering
+
+@Aspect
+public class LogAspect {
+
+}
+
+@Aspect
+public class TransactionAspect {
+
+}
+
+@Aspect
+public class Security {
+
+}
+
+2) JoinPoint: a place where aspect can be weaved
+any methods or exception is a valie joinpoint
+
+3) PointCut: selected joinpoint
+
+public class LogAspect {
+	logic() {
+
+	}
+}
+
+4) Advice
+Before, After, AfterReturning, Around, AfterThrowing
+
+=======
+
+
