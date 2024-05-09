@@ -905,7 +905,35 @@ Default JpaRepository methods are Transactional, custom methods we need @Transac
 
 Exception Handlers for Controllers and RestController which are HttpServletRequest and HttpServletResponse aware --> @ControllerAdvice
 
+Adding Validations:
 
+```
+ <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+ </dependency>
+
+ public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // AUTO_INCREMENT
+    private int id;
+    @NotBlank(message = "Name is required")
+    private String name;
+    @Min(value = 10, message = "Price ${validatedValue}  should be more than {value}")
+    private double price;
+    @Min(value = 1, message = "Quantity ${validatedValue}  should be more than {value}")
+    private int quantity;
+}
+
+ public Product addProduct(@RequestBody @Valid Product p) {
+        return service.addProduct(p);
+    }
+```
+
+MethodArgumentNotValidException: 
+ProductController.addProduct(com.adobe.orderapp.entity.Product) with 2 errors: 
+[Field error ; default message [Quantity 0  should be more than 1]] 
+[Field error ; default message [Price -100.0  should be more than 10]] 
 
 
 
