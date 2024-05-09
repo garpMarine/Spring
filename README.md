@@ -757,10 +757,76 @@ redirected to "print.jsp"
 
 ```
 
+===================
 
+Day 3:
+
+Recap:
+* Spring Data Jpa --> JPA Repository
+* JP-QL vs SQL to write custom methods in JPARepository
+@Query , @Modifying [INSERT, DELETE and UPDATE] 
+* one-to-many, many-to-one mapping
+* RESTful webservices
+
+URI --> Noun
+Http Methods for CRUD operations
+GET --> READ -> Select statement
+POST --> CREATE --> INSERT statement
+PUT --> Update [payload contains new representation of entity to update]
+PATCH --> update [ partial update, useful if your entity is complex and we need partial update]
+DELETE -> DELETE
+http://localhost:8080/api/products/2 to delete product by id 2
+--> 200 OK
+--> 404 Not found
+
+
+IDEMPOTENT methods: GET, PUT and DELETE are safe methods
+Not IDEMPOTENT: POST, PATCH
  
+GET, DELETE --> no payload
+PUT, PATCH, POST --> needs payload
 
+==========
 
+PATCH operation
+The HTTP PATCH request method applies partial modifications to a resource.
+A PATCH request is considered a set of instructions on how to modify a resource. 
+Contrast this with PUT; which is a complete representation of a resource.
 
+JSON Patch
+https://jsonpatch.com/
 
- 
+```
+Current data:
+{
+  "biscuits": [
+    { "name": "Digestive" },
+    { "name": "Choco Leibniz" }
+  ]
+}
+
+operations : add, replace, remove, move, test
+Payload:
+[
+	{ "op": "add", "path": "/biscuits/1", "value": { "name": "Ginger Nut" } }
+]
+
+Change to:
+
+{
+  "biscuits": [
+    { "name": "Digestive" },
+	{ "name": "Ginger Nut" },
+    { "name": "Choco Leibniz" }
+  ]
+}
+
+	{ "op": "remove", "path": "/biscuits/0" },
+
+```
+
+<dependency>
+    <groupId>com.github.java-json-tools</groupId>
+    <artifactId>json-patch</artifactId>
+    <version>1.13</version>
+</dependency>

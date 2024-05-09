@@ -41,7 +41,22 @@ public class ProductController {
     // @RequestBody JSON --> Java
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED) // 201
-    public  Product addProduct(@RequestBody Product p) {
+    public Product addProduct(@RequestBody Product p) {
         return service.addProduct(p);
+    }
+
+    // http://localhost:8080/api/products/2
+    // payload contains the new product data
+    @PutMapping("/{id}")
+    public Product updateProduct(@PathVariable("id") int id, @RequestBody Product p) {
+        // todo update
+        return service.getProductById(id);
+    }
+
+    // http://localhost:8080/api/products/2
+    @DeleteMapping("/{id}")
+    public String deleteProduct(@PathVariable("id") int id) {
+        // todo
+        return "Product with ID " + id + " is deleted!!!";
     }
 }
