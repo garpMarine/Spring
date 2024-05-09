@@ -1,6 +1,7 @@
 package com.adobe.orderapp.api;
 
 import com.adobe.orderapp.entity.Product;
+import com.adobe.orderapp.exceptions.NotFoundException;
 import com.adobe.orderapp.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,7 +33,7 @@ public class ProductController {
     // http://localhost:8080/api/products/3
     // Path Parameter
     @GetMapping("/{id}")
-    public Product getProduct(@PathVariable("id") int id) {
+    public Product getProduct(@PathVariable("id") int id) throws NotFoundException {
         return  service.getProductById(id);
     }
 
@@ -48,7 +49,7 @@ public class ProductController {
     // http://localhost:8080/api/products/2
     // payload contains the new product data
     @PutMapping("/{id}")
-    public Product updateProduct(@PathVariable("id") int id, @RequestBody Product p) {
+    public Product updateProduct(@PathVariable("id") int id, @RequestBody Product p) throws  NotFoundException{
         // todo update
         return service.getProductById(id);
     }

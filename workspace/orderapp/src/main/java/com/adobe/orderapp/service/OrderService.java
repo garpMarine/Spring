@@ -8,6 +8,7 @@ import com.adobe.orderapp.entity.Customer;
 import com.adobe.orderapp.entity.LineItem;
 import com.adobe.orderapp.entity.Order;
 import com.adobe.orderapp.entity.Product;
+import com.adobe.orderapp.exceptions.NotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Scope;
@@ -52,6 +53,11 @@ public class OrderService {
         return  "order placed!!!";
     }
 
+    @Transactional
+    public void updateProduct(int id, double price) {
+        productDao.updateProduct(id,price);
+    }
+
     public List<Order> getOrders() {
         return  ordeDao.findAll();
     }
@@ -77,12 +83,12 @@ public class OrderService {
         return productDao.findAll();
     }
 
-    public Product getProductById(int id) {
+    public Product getProductById(int id) throws NotFoundException {
         Optional<Product> opt = productDao.findById(id);
         if(opt.isPresent()) {
             return opt.get();
         }
-        return null; // throw exception
+        throw  new NotFoundException("Product with ID : " + id + " doesn't exist!!!");
     }
 
     public void deleteById(int id) {

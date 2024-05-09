@@ -901,5 +901,11 @@ https://docs.spring.io/spring-framework/docs/2.0.x/reference/aop.html
 
 ===============================
 
+Default JpaRepository methods are Transactional, custom methods we need @Transactional
+
+Exception Handlers for Controllers and RestController which are HttpServletRequest and HttpServletResponse aware --> @ControllerAdvice
+
+
+
 
 

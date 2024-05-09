@@ -18,6 +18,7 @@ public class OrderController {
         return service.getOrders();
     }
 
+    // POST http://localhost:8080/api/orders
     @PostMapping()
     public String placeOrder(@RequestBody Order order) {
         return service.placeOrder(order);
