@@ -22,7 +22,7 @@ public class Order {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="order_date")
-    private Date orderDate = new Date();
+    private Date orderDate = new Date(); //system date
 
     private double total; //computed
 
