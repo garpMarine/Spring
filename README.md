@@ -936,4 +936,52 @@ ProductController.addProduct(com.adobe.orderapp.entity.Product) with 2 errors:
 [Field error ; default message [Price -100.0  should be more than 10]] 
 
 
+======================
+
+Monitoring and Observability
+Monitoring:
+1) Notifies that the system is at fualt
+2) health, info, metrics ,..
+
+Spring boot provides actuator library for monitoring
+
+```
+ <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+ </dependency>
+
+management.endpoint.health.show-details=always
+#management.endpoints.web.exposure.include=health,metrics,info
+management.endpoints.web.exposure.exclude=
+management.endpoints.web.exposure.include=*
+management.metrics.distribution.percentiles-histogram.http.server.requests=true
+```
+ab -c 100 -n 200 http://localhost:8080/api/products
+ab -c 50 -n 100 http://localhost:8080/api/products/2
+
+http://localhost:8080/actuator
+http://localhost:8080/actuator/metrics/http.server.requests
+
+Prometheus is an open-source systems monitoring and alerting toolkit. Time Series database
+need Promethues server running:
+
+```
+ <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+            <scope>runtime</scope>
+ </dependency>
+  <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-docker-compose</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+
+http://localhost:8080/actuator/prometheus
+http://localhost:9090/
+```
+
+
 
