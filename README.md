@@ -766,6 +766,42 @@ public ContentNegotiationConfigurer defaultContentTypeStrategy(ContentNegotiatio
 
 HttpMessageConverters for String to Java primitives are available by default
 
+Difference between @Controller and @RestController
+
+@Controller: return type is "String" or ModelAndView Object
+
+```
+GET
+http://localhost:8080/getProducts
+
+Controller vs RestController:
+
+@Controller
+public class ProductController {
+
+	@RequestMapping(value="/getProducts", method=RequestMethod.GET)
+	public String getdata() {
+		...
+		return "print.jsp";
+	}
+redirected to "print.jsp"
+
+	@RequestMapping(value="/getData", method=RequestMethod.GET)
+	public ModelAndView getdata2() {
+		ModelAndView mav = new ModelAndView();
+		mav.setObject("data", new Date());
+		mav.setObject("name", "banu@gmail.com");
+		mav.setView("print.jsp");
+		return mav;
+	}
+
+	@RequestMapping(value="/products", method=RequestMethod.GET)
+	public @ResponseBody List<Product> getProducts() {
+		return service.getProducts();
+	}
+}
+
+```
 
 
  
