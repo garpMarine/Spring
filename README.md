@@ -1148,4 +1148,53 @@ nodeJS:
 $ npx redis-commander
 ```
 
+HATEOAS --> Hypermedia as the engine of Application State
+Level 3 RESTful WS
+https://martinfowler.com/articles/richardsonMaturityModel.html
+
+Order placed
+--> Cancel link
+--> payment link
+------> check status
+------> change address
+
+Spring Document
+
+WebMvcLinkBuilder allows us to add links programatically
+
+ResourceModel
+--> EntityModel ==> Entity Representation + links
+--> CollectionModel ==> List<EntityModel> + links
+
+```
+  <dependency>
+    <groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-hateoas</artifactId>
+ </dependency>
+ http://localhost:8080/api/products/hateoas/2
+
+ @EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL_FORMS)
+
+```
+
+Spring Data REST on top of Spring Data [ JPA / Mongo/ ..] repositories
+-> takes HATEOAS + Spring Data Jpa 
+--> creates endpoints based on methods of Spring Data
+--> no need for RestController
+
+New Spring boot applicaiton:
+mysql. lombok. web, Rest repositories
+
+http://localhost:8080/products?page=2&size=2
+http://localhost:8080/products
+http://localhost:8080/products/2
+http://localhost:8080/products/search/findByQuantity?q=99
+http://localhost:8080/products/search/getByRange?l=100&h=5000
+
+We can't write RestController with "Spring Data REST"
+instead use BasePathAwareController
+
+====
+
+Async, Security, MS
 

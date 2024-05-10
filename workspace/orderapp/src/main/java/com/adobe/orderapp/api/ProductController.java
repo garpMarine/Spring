@@ -8,12 +8,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClient;
 
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @RestController
 @RequestMapping("api/products")
@@ -33,6 +36,23 @@ public class ProductController {
         } else {
             return service.byRange(low, high);
         }
+    }
+
+    // HATEOAS
+    @GetMapping("/hateoas/{id}")
+    public ResponseEntity<EntityModel<Product>> getProductHateoas(@PathVariable("id") int id) throws NotFoundException {
+        Product p=  service.getProductById(id);
+        EntityModel<Product> entityModel = EntityModel.of(p,
+                linkTo(methodOn(ProductController.class).getProductHateoas(id))
+                        .withSelfRel()
+                        .andAffordance(afford(methodOn(ProductController.class).updateProduct(id, null)))
+                        .andAffordance(afford(methodOn(ProductController.class).deleteProduct(id))),
+                linkTo(methodOn(ProductController.class).getProducts(0,0))
+                        .withRel("products")
+                );
+
+        return ResponseEntity.ok(entityModel);
+
     }
 
     // http://localhost:8080/api/products/3
@@ -80,8 +100,14 @@ public class ProductController {
     // http://localhost:8080/api/products/2
     @CacheEvict(value = "productCache", key="#id")
     @DeleteMapping("/{id}")
-    public String deleteProduct(@PathVariable("id") int id) {
+    public StringType deleteProduct(@PathVariable("id") int id) {
         // todo
-        return "Product with ID " + id + " is deleted!!!";
+        return new StringType("Product with ID " + id + " is deleted!!!");
+    }
+
+    class StringType {
+        String msg;
+        StringType() {}
+        StringType(String m) {msg = m;}
     }
 }
