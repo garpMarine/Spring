@@ -1050,9 +1050,19 @@ Spring boot Rest clients:
     }
 ```
 2) WebClient [webflux dependency --> async module]
-3) RestClient 
+3) RestClient from Spring boot 3.x version onwards
 
 ===
 
 Zipkin is a distributed tracing sytem. collection of log
 http://localhost:9411/zipkin/
+
+@HttpExchange is the root annotation we can apply to an HTTP interface and its exchange methods
+@GetExchange for HTTP GET requests
+@PostExchange for HTTP POST requests
+@PutExchange for HTTP PUT requests
+@PatchExchange for HTTP PATCH requests
+@DeleteExchange for HTTP DELETE requests
+
+https://jsonplaceholder.typicode.com/posts
+
