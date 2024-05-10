@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 @RequiredArgsConstructor
 public class ObservationClient implements CommandLineRunner {
     private final PostService service;

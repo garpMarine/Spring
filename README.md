@@ -1066,3 +1066,86 @@ http://localhost:9411/zipkin/
 
 https://jsonplaceholder.typicode.com/posts
 
+Resume @ 11:25
+
+Caching:
+client-side caching:
+* HTTP Headers Cache-control
+* ETag --> Entity Tag
+The ETag (or entity tag) HTTP response header is an identifier for a specific version of a resource.
+```
+ @GetMapping("/etag/{id}")
+    public ResponseEntity<Product> getProductEtag(@PathVariable("id") int id) throws NotFoundException {
+        Product p =  service.getProductById(id);
+        return ResponseEntity.ok().eTag(Long.toString(p.hashCode())).body(p);
+    }
+```
+Check ETAG.pdf
+
+Server Side Caching:
+```
+ <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+@Configuration
+@EnableCaching
+public class AppConfig {
+
+SPeL
+   @Cacheable(value="productCache", key="#id")
+    @GetMapping("/cache/{id}")
+    public Product getProductCache(@PathVariable("id") int id) throws NotFoundException {
+        System.out.println("Cache Miss!!!");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ex) { }
+        return  service.getProductById(id);
+    }
+
+http://localhost:8080/actuator/caches
+
+"caches": {
+"productCache": {
+	"target": "java.util.concurrent.ConcurrentHashMap"
+}
+
+ @Cacheable(value="productCache", key="#id")
+ @CachePut(value = "productCache", key="#id")
+ @CacheEvict(value = "productCache", key="#id")
+
+ Scheduler to clear cache
+
+ @Configuration
+@EnableCaching
+@EnableScheduling
+public class AppConfig {
+
+https://spring.io/blog/2020/11/10/new-in-spring-5-3-improved-cron-expressions
+```
+
+Redis as CacheManager:
+docker run --name some-redis -p 6379:6379 -d redis
+
+spring.data.redis.host=localhost
+spring.data.redis.port=6379
+
+```
+ <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-redis</artifactId>
+</dependency>
+
+Serialization: process of replicating the state to a stream
+Check RedisConfig.java
+
+DefaultSerializer requires a Serializable payload but received an object of type [com.adobe.orderapp.entity.Product]
+
+public class Product implements Serializable {
+
+Redis Client:
+nodeJS:
+$ npx redis-commander
+```
+
+

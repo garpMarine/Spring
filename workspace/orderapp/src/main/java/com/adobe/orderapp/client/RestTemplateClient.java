@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-@Component
+//@Component
 public class RestTemplateClient implements CommandLineRunner {
     @Autowired
     RestTemplate template;

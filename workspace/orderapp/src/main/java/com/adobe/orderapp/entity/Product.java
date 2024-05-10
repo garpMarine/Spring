@@ -5,13 +5,15 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name="products")
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Builder
-public class Product {
+public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // AUTO_INCREMENT
     private int id;

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+//@Component
 @Order(1)
 @RequiredArgsConstructor
 public class ProductClient implements CommandLineRunner {

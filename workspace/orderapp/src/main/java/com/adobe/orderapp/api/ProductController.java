@@ -5,7 +5,11 @@ import com.adobe.orderapp.exceptions.NotFoundException;
 import com.adobe.orderapp.service.OrderService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClient;
 
@@ -38,17 +42,35 @@ public class ProductController {
         return  service.getProductById(id);
     }
 
+    @Cacheable(value="productCache", key="#id")
+    @GetMapping("/cache/{id}")
+    public Product getProductCache(@PathVariable("id") int id) throws NotFoundException {
+        System.out.println("Cache Miss!!!");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ex) { }
+        return  service.getProductById(id);
+    }
+
+    @GetMapping("/etag/{id}")
+    public ResponseEntity<Product> getProductEtag(@PathVariable("id") int id) throws NotFoundException {
+        Product p =  service.getProductById(id);
+        return ResponseEntity.ok().eTag(Long.toString(p.hashCode())).body(p);
+    }
+
     // POST  // http://localhost:8080/api/products
     // payload contains JSON
     // @RequestBody JSON --> Java
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED) // 201
+    @Cacheable(value="productCache", key="#p.id", condition = "#p.price > 5000")
     public Product addProduct(@RequestBody @Valid Product p) {
         return service.addProduct(p);
     }
 
     // http://localhost:8080/api/products/2
     // payload contains the new product data
+    @CachePut(value = "productCache", key="#id")
     @PutMapping("/{id}")
     public Product updateProduct(@PathVariable("id") int id, @RequestBody Product p) throws  NotFoundException{
         // todo update
@@ -56,6 +78,7 @@ public class ProductController {
     }
 
     // http://localhost:8080/api/products/2
+    @CacheEvict(value = "productCache", key="#id")
     @DeleteMapping("/{id}")
     public String deleteProduct(@PathVariable("id") int id) {
         // todo
