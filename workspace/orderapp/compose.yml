@@ -1,8 +1,4 @@
 services:
-  zipkin:
-    image: 'openzipkin/zipkin:latest'
-    ports:
-      - '9411:9411'
   prometheus:
     image: prom/prometheus
     container_name: prometheus
@@ -15,3 +11,7 @@ services:
 #   image: prom/alertmanager
 #   volumes:
 #     - "./alertmanager.yml:/alertmanager/alertmanager.yml"
+  zipkin:
+    image: 'openzipkin/zipkin:latest'
+    ports:
+      - '9411:9411'

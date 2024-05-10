@@ -18,10 +18,10 @@ public class RestTemplateClient implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-       // getUsers();
-       // getProduct();
-//        addProduct();
-   //     getAllProducts();
+        getUsers();
+        getProduct();
+        addProduct();
+        getAllProducts();
     }
 
     private void getAllProducts() {
@@ -44,7 +44,7 @@ public class RestTemplateClient implements CommandLineRunner {
 
     private void getUsers() {
         String result = template.getForObject("https://jsonplaceholder.typicode.com/users", String.class);
-        System.out.println(result);
+        System.out.println(result); // array of JSON
     }
 
     private void getProduct() {

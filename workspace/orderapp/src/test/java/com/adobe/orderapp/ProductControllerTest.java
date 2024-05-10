@@ -29,7 +29,7 @@ import static org.hamcrest.Matchers.*;
 @WebMvcTest(ProductController.class)
 public class ProductControllerTest {
     @MockBean
-    OrderService service;
+    OrderService service; // not the actual bean
 
     @Autowired
     MockMvc mockMvc; // for CRUD operation, perform Http Verbs

@@ -986,4 +986,73 @@ http://localhost:9090/
 Testing, Caching, HATEOAS, Rest clients
 
 
+Day 4:
 
+Recap:
+1) AOP
+2) @Transactional aspect
+Instead of programmatic tx we have declarative transaction
+
+@Transactional
+method() {}
+
+3) @ControllerAdvice, @ExceptionHandler
+
+---
+Spring boot Actuator module: production ready features to monitor your application.
+various endpoints for monitoring health check, info, metrics
+Examples:
+http://localhost:8080/actuator/health
+http://localhost:8080/actuator/beans
+http://localhost:8080/actuator/metrics
+http://localhost:8080/actuator/metrics/http.server.requests
+
+Prometheus server: time-series database + server
+scrape metrics from provided endpoint
+
+========================================
+
+Testing: --> Unit testing
+spring-boot-starter-test is added for every spring boot application
+
+* JUnit is provided as unit testing framework
+* Mockito library for mocking
+
+Controller --> Service --> Repository --> database
+
+to test repository we need to mock database
+to test service we need to mock repo
+to test controller we mock service
+
+* JsonPath
+https://jsonpath.com/
+
+* Hamcrest
+
+---
+
+@WebMvcTest --> creates a Minimalistic Spring container with TestDispatcherServlet instead of DispatcherServlet, creates web related beans like HandlerMapping, ...[ not create service / repo / etc]
+
+Not like @SpringBootApplication where all beans are created
+
+@WebMvcTest(ProductController.class) --> create bean ProductController within the container
+
+===================================
+
+Spring boot Rest clients:
+1) RestTemplate
+```
+ @Bean
+    RestTemplate createRestTemplate(RestTemplateBuilder builder) {
+		// set headers
+		// authorization token
+        return builder.build();
+    }
+```
+2) WebClient [webflux dependency --> async module]
+3) RestClient 
+
+===
+
+Zipkin is a distributed tracing sytem. collection of log
+http://localhost:9411/zipkin/
