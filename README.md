@@ -1301,6 +1301,25 @@ public class ProductController {
 ```
 
 http://localhost:8080/v3/api-docs
+
 http://localhost:8080/swagger-ui/index.html --> jquery
 
+@Hidden on Controller to specify that it should not be a part of documention
+
+===========
+
+Async Operations and using Custom Thread Pool
+https://jsonplaceholder.typicode.com/users
+https://jsonplaceholder.typicode.com/posts
+
+Future and CompletableFuture --> Java 5 version
+
+@EnableAsync
+public class AppConfig {
+
+Files Changed:
+UserService.java
+AggregatorService.java
+AppConfig.java
+PostController.java
 
