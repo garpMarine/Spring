@@ -2,6 +2,7 @@ package com.adobe.orderapp.api;
 
 import com.adobe.orderapp.entity.Order;
 import com.adobe.orderapp.service.OrderService;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,6 +1,9 @@
 package com.adobe.orderapp.cfg;
 
 import com.adobe.orderapp.service.PostService;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.CacheManager;
@@ -46,5 +49,14 @@ public class AppConfig {
         HttpServiceProxyFactory factory =
                 HttpServiceProxyFactory.builderFor(RestClientAdapter.create(restClient)).build();
         return  factory.createClient(PostService.class);
+    }
+
+    @Bean
+    public OpenAPI springOrderAppOpenApi() {
+        return  new OpenAPI()
+                .info(new Info().title("Shopping Application")
+                        .description("Spring Boot RESTful API")
+                        .version("1.0.0")
+                        .license(new License().name("Apache 2.0")));
     }
 }

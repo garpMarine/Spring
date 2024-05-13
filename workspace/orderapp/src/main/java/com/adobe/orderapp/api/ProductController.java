@@ -3,6 +3,12 @@ package com.adobe.orderapp.api;
 import com.adobe.orderapp.entity.Product;
 import com.adobe.orderapp.exceptions.NotFoundException;
 import com.adobe.orderapp.service.OrderService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
@@ -21,6 +27,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 @RestController
 @RequestMapping("api/products")
 @RequiredArgsConstructor
+@Tag(name="products", description = "Product API")
 public class ProductController {
     private final OrderService service;
 
@@ -57,6 +64,13 @@ public class ProductController {
 
     // http://localhost:8080/api/products/3
     // Path Parameter
+    @Operation(summary = "Get Product by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the product",
+                    content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Product.class)) }),
+            @ApiResponse(responseCode = "404", description = "Product not found",
+                    content = @Content)})
     @GetMapping("/{id}")
     public Product getProduct(@PathVariable("id") int id) throws NotFoundException {
         return  service.getProductById(id);

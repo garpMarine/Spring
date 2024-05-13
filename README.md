@@ -1198,3 +1198,109 @@ instead use BasePathAwareController
 
 Async, Security, MS
 
+```
+<!-- Security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.11.5</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.11.5</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.11.5</version>
+        </dependency>
+        <!-- Security ends -->
+```
+
+Day 5:
+
+Recap:
+* Spring and Spring Boot Framework
+Dockerfile
+FROM eclipse-temurin:17-jdk-alpine
+VOLUME /tmp
+ARG JAR_FILE
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
+
+java -jar app.jar
+
+* JPA --> RDBMS
+* JpaRepository , @Query
+* Building RESTful WS
+Spring MVC module, DispatcherServlet, HandlerMapping, @RestController , ....
+* AOP
+* @Transactional, @ControllerAdvice, @ExceptionHandler
+* Validation: @Valid --> MethodArgumentNotValidException
+* Caching: ConcurrentHashMap CacheManager, RedisCacheManager
+@Cacheable, @CachePut, @CacheEvit --> @EnableCache , @Scheduled --> @EnableSchedule
+* HATEAOS --> HyperText As The Extension Of Application State
+WebMvcLinkBuilder --> EntityModel / CollectionModel --> Entity + Link
+Level 3 Restful WS
+* Spring Data Rest --> REST Repository [ RESTful + Repository]
+@BasePathAwareController
+@RespositoryRestController
+instead of @RestController
+
+* RestTemplate / RestClient
+* @HttpException: @GetExchange, @PostExchange, @PutExchage, @DeleteExchange
+--> Declarative REST client
+
+@GetExchange
+List<Product> getProducts();
+
+CGLib [proxy ]/ Byte Buddy or Javaassist for Byte code instrumentation
+
+==================
+
+Spring Documentation:
+* RAML
+https://raml.org/
+* The OpenAPI Specification provides a formal standard for describing HTTP APIs.
+--> Swagger OpenAI
+
+Scan all packages for @Controller and @RestController and creates Documention
+```
+ <!-- Spring Docs -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.0.2</version>
+        </dependency>
+Appconfig.java
+@Bean                                                                   
+public OpenAPI springOrderAppOpenApi() {                                
+    return  new OpenAPI()                                               
+            .info(new Info().title("Shopping Application")              
+                    .description("Spring Boot RESTful API")             
+                    .version("1.0.0")                                   
+                    .license(new License().name("Apache 2.0")));        
+}  
+ProductController.java
+@Tag(name="products", description = "Product API")
+public class ProductController {    
+ @Operation(summary = "Get Product by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the product",
+                    content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = Product.class)) }),
+            @ApiResponse(responseCode = "404", description = "Product not found",
+                    content = @Content)})
+    @GetMapping("/{id}")
+    public Product getProduct(@PathVariable("id") int id) throws NotFoundException {                                                                 
+```
+
+http://localhost:8080/v3/api-docs
+http://localhost:8080/swagger-ui/index.html --> jquery
+
+
