@@ -4,7 +4,9 @@ import com.adobe.orderapp.dto.Post;
 import com.adobe.orderapp.dto.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Service;
+import org.springframework.web.filter.DelegatingFilterProxy;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -27,4 +29,6 @@ public class AggregatorService {
         System.out.println(Thread.currentThread() + " for getUsers()");
         return CompletableFuture.completedFuture(userService.getUsers());
     }
+
+
 }

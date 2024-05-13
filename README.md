@@ -1363,5 +1363,37 @@ time non-blocking code: 6 ms
 
 Server Side Events
 
+Functional Endpoints:
+We can also use Functional Routers instead of @RestController in webflux
+
+Pending:
+--> Share the code [ pending ]
+https://docs.spring.io/spring-framework/reference/web/webflux-functional.html
+
+--> Mongo Repository [ reactive ]
+
+==========
+
+Spring Security: Authentication and Authorization
+
+```
+ <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+```
+
+1) By default all resources are protected.
+2) creates login and logout pages
+http://localhost:8080/login
+http://localhost:8080/logout
+3) creates a single user with "username" as "user" and generated password
+Using generated security password: 60a93d5a-75c0-4c34-ad72-66abbcae75df
+
+
+
+
+
+
 
 
