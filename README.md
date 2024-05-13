@@ -1317,9 +1317,51 @@ Future and CompletableFuture --> Java 5 version
 @EnableAsync
 public class AppConfig {
 
-Files Changed:
-UserService.java
-AggregatorService.java
-AppConfig.java
-PostController.java
+======
+
+Reactive Programming:
+declarive paradigm concerned with data streams and propagation of change.
+
+React to something --> run a function whene user clicks
+
+Iterator Pattern to Observer Pattern
+```
+  <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-webflux</artifactId>
+</dependency>
+```
+
+webflux uses Netty server as Servlet Container instead of Tomcat as servlet Container
+o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port 8080
+
+Tomcat --> thread based [ one thread per client]
+Netty --> Event loop based.
+
+Project with reactive web and lombok
+Subscription: one-to-one relationship between Publihser and Subscriber.
+
+interface Subscription <T> {
+	public void request(long n);
+	public void cancel();
+}
+
+==========
+
+JDBC --> Spring Data R2DBC instead of Spring Data Jpa
+MongoDB --> reactive MongoRepository vs MongoReactiveRepository
+
+@Async uses Future / CompletableFuture
+--> Still sync when response is sent
+
+Spring WebFlux comes with two publishers:
+Mono: return 0 or 1 element
+Flux: returns 0...N elements
+
+time blocking code: 10043 ms
+time non-blocking code: 6 ms
+
+Server Side Events
+
+
 
