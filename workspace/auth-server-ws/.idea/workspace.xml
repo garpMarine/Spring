@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c30e6cc8-180e-433a-9340-e6dadce79bf9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../orderapp/src/main/java/com/adobe/orderapp/api/AuthenticationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../orderapp/src/main/java/com/adobe/orderapp/cfg/JwtAuthenticationFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../orderapp/src/main/java/com/adobe/orderapp/cfg/SecurityConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../orderapp/src/main/java/com/adobe/orderapp/dao/UserDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../orderapp/src/main/java/com/adobe/orderapp/dto/JwtAuthenticationResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../orderapp/src/main/java/com/adobe/orderapp/dto/SignUpRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../orderapp/src/main/java/com/adobe/orderapp/dto/SigninRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../orderapp/src/main/java/com/adobe/orderapp/entity/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../orderapp/src/main/java/com/adobe/orderapp/entity/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../orderapp/src/main/java/com/adobe/orderapp/service/AuthenticationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../orderapp/src/main/java/com/adobe/orderapp/service/JwtService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../orderapp/src/main/java/com/adobe/orderapp/service/UserDetailsServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../reactive/src/main/java/com/adobe/reactive/CustomerHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../reactive/src/main/java/com/adobe/reactive/RouterConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../orderapp/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../orderapp/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../orderapp/src/main/java/com/adobe/orderapp/cfg/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../orderapp/src/main/java/com/adobe/orderapp/cfg/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../orderapp/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../orderapp/src/main/resources/application.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="2gPcCEmxuRSznodcLkO3u5xHyHT" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c30e6cc8-180e-433a-9340-e6dadce79bf9" name="Changes" comment="" />
+      <created>1715602527622</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1715602527622</updated>
+      <workItem from="1715602528643" duration="127000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

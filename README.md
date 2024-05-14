@@ -1198,29 +1198,7 @@ instead use BasePathAwareController
 
 Async, Security, MS
 
-```
-<!-- Security -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-api</artifactId>
-            <version>0.11.5</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-impl</artifactId>
-            <version>0.11.5</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId>
-            <version>0.11.5</version>
-        </dependency>
-        <!-- Security ends -->
-```
+
 
 Day 5:
 
@@ -1391,9 +1369,101 @@ http://localhost:8080/logout
 Using generated security password: 60a93d5a-75c0-4c34-ad72-66abbcae75df
 
 
+===========
+
+Day 6:
+
+Recap:
+Async and Reactive programming [webflux] --> Mono, Flux
+* Reactive can be done using @RestController
+* Reactive Controller can be done using RouterFunction 
+
+Spring Security:
+including Security dependency by default provides:
+1) All resources are protected by default
+2) gives login and logout pages
+3) creates one user with "username" : "user" and "password" : <<generated_password>>
+4) uses JSESSIONID to track conversational state of the client
+User Authentication object [ which contains principle, isAuthenticated, authorities/ role] will be stored in SecurityContext, each SecurityContext is associated with JSESSIONID
+
+Customization:
+1) AuthenticationManager to use different providers like
+InMemory, DaoAuthenticationProvider, LDap, ...
+
+UserDetailsService interface has to be implemented by all providers
+
+2) Beans to configure protected resources and specify provider
+
+3) @EnableWebSecurity
+
+DelegatingProxyFilter, UsernamePasswordAuthenticationFilter,
+
+==========================
+
+DaoAuthenticationProvider needs RDBMS and needs the table to be following specifc Schema
+
+https://docs.spring.io/spring-security/reference/servlet/appendix/database-schema.html
+
+===========================
+
+RESTful WS has to Stateless.
+Use Tokens --> JWT
+JSON Web Tokens are an open, industry standard RFC 7519 method for representing claims securely between two parties.
+
+```
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
 
 
+Header:
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+
+Payload:
+{
+	"sub" : "banu@gmail.com",
+	"iat" : 12342342,
+	"exp" : 63424111,
+	"iss": "http://adobe.com/secure",
+	"authorities": "ADMIN", "MANAGER"
+}
+
+SIGNATURE:
+HMACSHA256(
+  base64UrlEncode(header) + "." +
+  base64UrlEncode(payload),
+  your-256-bit-secret_top_secret_key [ generally comes from Configuration server or use Private Key and public key]
+) 
+
+keytoll / openSSL
+Private Key is used to generate the token [Authorization Server]
+Public key is used to validate the token [Resource Server]
+```
+
+User and Role
+UserDao
+DTOs:
+SignUpRequest --> Registration
+SigninRequest --> Login
+JwtAuthenticationResponse --> to send Token to client
+
+Services:
+UserDetailsServiceImpl used for JPA implementation instead of JdbcUserImpl[built-in]
+JwtService: 
+ login: generateToken()
+ Access Resource:
+ Http header 
+ Authroization: Bearer <<token>>
+ isTokenValid()
+AuthenticationService: 
+ return token on signup and signin
+ 
+cfg:
+JwtAuthenticationFilter -> OncePerRequestFilter
+read token, validate and store UserDetails in SecurityContext
+SecurityConfiguration
+https://bcrypt-generator.com
 
 
-
-
+AuthenticationController Controller
