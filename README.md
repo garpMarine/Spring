@@ -1501,5 +1501,24 @@ check registered instances
 
 ```
 
+2) Student Service
+student-service
+Actuator, jpa, lombok, mysql, web, Eureka Discovery client
+
+Start and see that it's registered with Eureka-server
+
+3) School Service
+Openfeign, Actuator, jpa, lombok, mysql, web, Eureka Discovery client
+Openfeign --> declartive client for MicroService like @HttpExchange
+
+@EnableFeignClients
+public class SchoolServiceApplication {
+
+create table schools (school_id int PRIMARY KEY AUTO_INCREMENT,name VARCHAR(100));
+
+create table students(id int PRIMARY KEY AUTO_INCREMENT, first_name VARCHAR(100), email VARCHAR(100), school_id int);
+
+
+http://localhost:8070/api/schools/with-students/2
 
 
