@@ -1458,7 +1458,7 @@ JwtService:
  isTokenValid()
 AuthenticationService: 
  return token on signup and signin
- 
+
 cfg:
 JwtAuthenticationFilter -> OncePerRequestFilter
 read token, validate and store UserDetails in SecurityContext
@@ -1467,3 +1467,39 @@ https://bcrypt-generator.com
 
 
 AuthenticationController Controller
+
+=======
+
+Monolithic : not scalable
+Microservices:
+Each microservice you design shall concentrate only on one service of the application.
+Between MS we can have Synchronous communication or Asynchronous communication [eventual consistency]
+
+* Discovery Server
+* Services
+* Api Gateway
+* Confiration Server
+
+====
+Spring Cloud APIs
+1) Build Discovery Server [Netflix --> Eureka  server]
+discovery-server
+dependency --> eureka-server
+```
+ <dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+ </dependency>
+ @SpringBootApplication
+@EnableEurekaServer
+public class DiscoveryServerApplication {
+
+configure application.yml
+start:
+http://localhost:8761/
+check registered instances
+
+```
+
+
+
